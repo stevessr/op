@@ -1,0 +1,107 @@
+图片智能重命名工具 - 使用说明
+================================
+
+这个工具可以使用Google Gemini AI自动识别图片内容并重命名文件。
+
+🚀 快速开始
+----------
+
+1. 获取API密钥
+   - 访问: https://makersuite.google.com/app/apikey
+   - 登录Google账号
+   - 点击"Create API Key"创建新密钥
+   - 复制生成的API密钥
+
+2. 配置API密钥
+   - 打开 config.py 文件
+   - 找到这一行: GEMINI_API_KEY = "YOUR_API_KEY_HERE"
+   - 将 YOUR_API_KEY_HERE 替换为你的实际API密钥
+   - (可选) 如果需要使用代理，设置 GEMINI_BASE_URL = "https://your-proxy.com/v1"
+   - 保存文件
+
+3. 运行工具
+   方法一 (推荐): 双击 run.bat 文件
+   方法二: 在命令行运行 python simple_rename.py
+
+📋 使用步骤
+----------
+
+1. 将脚本文件放在包含图片的文件夹中
+2. 配置API密钥 (见上面步骤2)
+3. 运行脚本
+4. 选择试运行模式预览结果
+5. 确认无误后选择实际重命名模式
+
+⚠️ 重要提示
+-----------
+
+1. 首次使用建议选择试运行模式
+2. 建议限制处理文件数量 (如10-20个) 进行测试
+3. 重命名前请备份重要文件
+4. API调用需要网络连接且可能产生费用
+5. 程序会自动跳过已重命名的文件，避免重复处理
+
+🔄 重命名历史功能
+---------------
+
+- 程序自动记录所有重命名操作到 rename_history.json
+- 再次运行时会跳过已处理的文件
+- 如需重新处理，选择"强制重新处理"选项
+- 节省API调用次数和处理时间
+
+⏭️ 文件跳过功能
+--------------
+
+- 可以跳过特定格式的图片 (如GIF动图)
+- 可以跳过特定文件名模式 (如缩略图、备份文件)
+- 可以跳过特定目录 (如临时目录、备份目录)
+- 在config.py中配置或使用命令行参数
+- 减少不必要的处理，提高效率
+
+📁 文件说明
+----------
+
+- image_renamer.py: 主程序文件
+- simple_rename.py: 简化版启动脚本
+- config.py: 配置文件 (需要设置API密钥)
+- requirements.txt: Python依赖包列表
+- run.bat: Windows批处理启动文件
+- README.md: 详细说明文档
+
+🔧 高级用法
+----------
+
+如果需要更多控制选项，可以直接使用命令行:
+
+python image_renamer.py [目录路径] --api-key [你的密钥] [其他选项]
+
+可用选项:
+--dry-run: 试运行模式
+--max-files: 限制文件数量
+--delay: API调用间隔
+--model: 指定AI模型
+--base-url: 自定义API端点 (用于代理)
+--force-reprocess: 强制重新处理已处理文件
+--skip-formats: 跳过的图片格式
+--skip-patterns: 跳过的文件名模式
+--skip-dirs: 跳过的目录名
+
+示例:
+python image_renamer.py . --api-key sk-xxx --dry-run --max-files 50
+python image_renamer.py . --api-key sk-xxx --base-url https://your-proxy.com/v1
+python image_renamer.py . --api-key sk-xxx --force-reprocess
+python image_renamer.py . --api-key sk-xxx --skip-formats .gif .svg
+python image_renamer.py . --api-key sk-xxx --skip-patterns thumb* *_backup.*
+
+🆘 故障排除
+----------
+
+1. "未找到Python": 请安装Python 3.7+
+2. "API密钥错误": 检查config.py中的密钥是否正确
+3. "网络连接失败": 检查网络连接
+4. "权限错误": 确保有文件读写权限
+
+📞 获取帮助
+----------
+
+如遇问题，请检查生成的日志文件 image_renamer.log
